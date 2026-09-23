@@ -1,0 +1,298 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0b192c 0%, #1e3e62 30%, #4a148c 65%, #d81b60 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0;
+}
+
+/* Buat ukuran wadah dashboard lebih lebar agar tabel tidak terpotong */
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 1050px; /* Diperbesar dari 750px ke 1050px */
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Pengaturan area tabel agar rapi dan pas di tengah */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  table-layout: auto;
+}
+
+th, td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+  white-space: nowrap; /* Mencegah baris terpotong secara berantakan */
+}
+
+/* Mengatur lebar spesifik tiap kolom agar seimbang */
+th:nth-child(1), td:nth-child(1) { width: 10%; } /* NISN */
+th:nth-child(2), td:nth-child(2) { width: 25%; white-space: normal; } /* Nama Siswa */
+th:nth-child(3), td:nth-child(3) { width: 10%; } /* Kelas */
+th:nth-child(4), td:nth-child(4) { width: 10%; text-align: center; } /* Jam Masuk */
+th:nth-child(5), td:nth-child(5) { width: 10%; text-align: center; } /* Jam Keluar */
+th:nth-child(6), td:nth-child(6) { width: 10%; text-align: center; } /* Status */
+th:nth-child(7), td:nth-child(7) { width: 12%; text-align: center; } /* Keterangan */
+th:nth-child(8), td:nth-child(8) { width: 13%; text-align: center; } /* Aksi Admin */
+
+th {
+  background-color: #f8fafc;
+  color: #334155;
+  font-weight: 700;
+}
+
+/* Style tambahan untuk dropdown aksi admin di tabel agar tidak sempit */
+td select {
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 12px;
+  width: 100%;
+}
+
+.card-header {
+  background: linear-gradient(90deg, #1e3e62, #4a148c, #d81b60);
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.card-header p {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.nav-tabs {
+  display: flex;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn.active {
+  color: #4a148c;
+  border-bottom: 3px solid #d81b60;
+  background: #ffffff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  width: 100%;
+  background: linear-gradient(135deg, #4a148c, #d81b60);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Container Kamera & Scanner */
+#video-container {
+  width: 100%;
+  max-width: 320px;
+  height: 280px;
+  margin: 15px auto 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+#video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: scaleX(-1);
+}
+
+.upload-section {
+  margin-top: 12px;
+}
+
+.file-label {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: #f3e5f5;
+  color: #4a148c;
+  border: 1px dashed #ab47bc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#qr-input-file {
+  display: none;
+}
+
+#result-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: none;
+}
+
+/* Dashboard & Cards Ringkasan */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-title {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: bold;
+}
+
+.stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.stat-total { border-top: 3px solid #64748b; }
+.stat-hadir { border-top: 3px solid #22c55e; color: #15803d; }
+.stat-sakit { border-top: 3px solid #eab308; color: #a16207; }
+.stat-izin { border-top: 3px solid #3b82f6; color: #1d4ed8; }
+.stat-alpa { border-top: 3px solid #ef4444; color: #b91c1c; }
+
+.filter-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #475569;
+}
+
+.form-group input, .form-group select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.dashboard-header h3 {
+  margin: 0;
+  color: #1e3e62;
+}
+
+.btn-logout {
+  width: auto;
+  padding: 6px 12px;
+  background: #ef4444;
+  font-size: 12px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background-color: #f8fafc;
+  color: #334155;
+}
+
+.badge {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.badge-hadir { background: #dcfce7; color: #15803d; }
+.badge-sakit { background: #fef9c3; color: #a16207; }
+.badge-izin { background: #dbeafe; color: #1d4ed8; }
+.badge-alpa { background: #fee2e2; color: #b91c1c; }

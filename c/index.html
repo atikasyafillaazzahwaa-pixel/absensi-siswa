@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scanner Absensi QR NESAT</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Scanner Absensi QR NESAT</h2>
+      <p>SMKN 1 Gunung Sindur</p>
+    </div>
+
+    <div class="nav-tabs">
+      <button id="tab-scan" class="tab-btn active" onclick="switchTab('scan')">📷 Scanner QR</button>
+      <button id="tab-admin" class="tab-btn" onclick="switchTab('admin')">📊 Admin / Guru</button>
+    </div>
+
+    <!-- Section Scanner -->
+    <div id="section-scan" class="card-body">
+      <button onclick="startCamera()" class="btn-primary">📷 Buka Kamera</button>
+      <div class="upload-section">
+        <label for="qr-input-file" class="file-label">📁 Upload Foto QR</label>
+        <input type="file" id="qr-input-file" accept="image/*">
+      </div>
+
+      <div id="video-container" style="display: none; margin-top: 15px;">
+        <video id="video" playsinline autoplay muted></video>
+        <canvas id="canvas" hidden></canvas>
+      </div>
+
+      <div id="result-box"></div>
+    </div>
+
+    <!-- Section Login Admin -->
+    <div id="section-login" class="card-body hidden">
+      <h3 class="section-title">Login Guru / Admin</h3>
+      <form onsubmit="handleLogin(event)" class="login-form">
+        <div class="form-group">
+          <label for="admin-pass">Password Admin:</label>
+          <input type="password" id="admin-pass" placeholder="Masukkan Password" required>
+        </div>
+        <button type="submit" class="btn-submit">Masuk Dashboard</button>
+      </form>
+    </div>
+
+    <!-- Section Dashboard Admin -->
+    <div id="section-dashboard" class="card-body hidden">
+      <div class="dashboard-header">
+        <h3>Dashboard Presensi Siswa</h3>
+        <button onclick="logoutAdmin()" class="btn-logout">Keluar</button>
+      </div>
+
+      <!-- Ringkasan Statistik Presensi -->
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <span class="stat-title">Total Siswa</span>
+          <span class="stat-value" id="statTotal">0</span>
+        </div>
+        <div class="stat-card stat-hadir">
+          <span class="stat-title">Hadir</span>
+          <span class="stat-value" id="statHadir">0</span>
+        </div>
+        <div class="stat-card stat-sakit">
+          <span class="stat-title">Sakit</span>
+          <span class="stat-value" id="statSakit">0</span>
+        </div>
+        <div class="stat-card stat-izin">
+          <span class="stat-title">Izin</span>
+          <span class="stat-value" id="statIzin">0</span>
+        </div>
+        <div class="stat-card stat-alpa">
+          <span class="stat-title">Alpa</span>
+          <span class="stat-value" id="statAlpa">0</span>
+        </div>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-container">
+        <div class="form-group flex-1">
+          <label for="filter-date">Tanggal:</label>
+          <input type="date" id="filter-date" onchange="renderAttendanceTable()">
+        </div>
+        <div class="form-group flex-1">
+          <label for="filter-kelas">Filter Kelas:</label>
+          <select id="filter-kelas" onchange="renderAttendanceTable()">
+            <option value="ALL">Semua Kelas</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tabel Data Presensi -->
+      <div class="table-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>NISN</th>
+        <th>Nama Siswa</th>
+        <th>Kelas</th>
+        <th>Jam Masuk</th>
+        <th>Jam Keluar</th>
+        <th>Status</th>
+        <th>Keterangan</th>
+        <th>Aksi Admin</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+    </tbody>
+  </table>
+</div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
